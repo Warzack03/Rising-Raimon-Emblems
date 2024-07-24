@@ -37,6 +37,14 @@ public class ProductController {
         return new ResponseEntity<>(productUseCase.totalEarnedByProductType(productType), HttpStatus.OK);
     }
 
+    @Operation(summary = "Endpoint to know how much money we have earned on a product")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/profit", headers = "Accept=application/json")
+    public ResponseEntity<Double> profitByProductType(@RequestParam(value = "productType") ProductTypeEnum productType) throws RisingRaimonException {
+        log.info("ProductController::profitByProductType() of type: {}", productType);
+        return new ResponseEntity<>(productUseCase.profitByProductType(productType), HttpStatus.OK);
+    }
+
     @Operation(summary = "Endpoint to know how many products we have sold")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/products-sold", headers = "Accept=application/json")

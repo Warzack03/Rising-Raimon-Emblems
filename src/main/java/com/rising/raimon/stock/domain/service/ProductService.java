@@ -41,10 +41,12 @@ public class ProductService implements ProductUseCase {
             response.setActualStock(response.getActualStock() - amount);
             productEntityRepository.save(response);
 
-            SellEntity entity = new SellEntity();
-            entity.setDate(LocalDate.now());
-            entity.setType(productType.getValue());
-            sellEntityRepository.save(entity);
+            for (int i = 0; i <amount; i++) {
+                SellEntity entity = new SellEntity();
+                entity.setDate(LocalDate.now());
+                entity.setType(productType.getValue());
+                sellEntityRepository.save(entity);
+            }
         } catch (Exception e) {
             log.error("Error while selling {} -> {}", productType, e.getMessage());
             throw new RisingRaimonException(e.getMessage());
@@ -69,6 +71,16 @@ public class ProductService implements ProductUseCase {
             return (response.getTotalAmount() - response.getActualStock()) * response.getSellPrice();
         } catch (Exception e) {
             log.error("Error while calculating total earned on {} -> {}", productType, e.getMessage());
+            throw new RisingRaimonException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Double profitByProductType(ProductTypeEnum productType) throws RisingRaimonException {
+        try {
+            return totalEarnedByProductType(productType) - totalSpentByProductType(productType);
+        } catch (Exception e) {
+            log.error("Error while calculating profit on {} -> {}", productType, e.getMessage());
             throw new RisingRaimonException(e.getMessage());
         }
     }
