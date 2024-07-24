@@ -1,5 +1,6 @@
 package com.rising.raimon.stock.domain.service;
 
+import com.rising.raimon.stock.application.model.request.ProductSoldInTimeRequestDTO;
 import com.rising.raimon.stock.domain.model.enums.ProductTypeEnum;
 import com.rising.raimon.stock.domain.model.exception.RisingRaimonException;
 import com.rising.raimon.stock.domain.usecases.ProductUseCase;
@@ -92,6 +93,19 @@ public class ProductService implements ProductUseCase {
             return (response.getTotalAmount() - response.getActualStock());
         } catch (Exception e) {
             log.error("Error while calculating total of product sold of {} -> {}", productType, e.getMessage());
+            throw new RisingRaimonException(e.getMessage());
+        }
+    }
+
+    @Override
+    public Integer productsSoldBetweenDates(ProductSoldInTimeRequestDTO request) throws RisingRaimonException {
+        try {
+            Long count = sellEntityRepository.findByDates(request.getProductType().getValue(),
+                    request.getStartDate().toString(), request.getEndDate().toString());
+            return count.intValue();
+        } catch (Exception e) {
+            log.error("Error while calculating products sold between {} and {} -> {}", request.getStartDate(),
+                    request.getEndDate(), e.getMessage());
             throw new RisingRaimonException(e.getMessage());
         }
     }
