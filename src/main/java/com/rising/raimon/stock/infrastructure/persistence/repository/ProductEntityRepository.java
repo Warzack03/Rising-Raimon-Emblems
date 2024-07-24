@@ -1,6 +1,5 @@
 package com.rising.raimon.stock.infrastructure.persistence.repository;
 
-import com.rising.raimon.stock.domain.model.enums.ProductTypeEnum;
 import com.rising.raimon.stock.infrastructure.persistence.entities.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
