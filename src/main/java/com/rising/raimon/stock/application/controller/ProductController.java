@@ -21,6 +21,30 @@ public class ProductController {
 
     private final ProductUseCase productUseCase;
 
+    @Operation(summary = "Endpoint to buy player shirts")
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(headers = "Accept=application/json")
+    public ResponseEntity<Void> buyProducts(
+            @RequestParam(value = "productType") ProductTypeEnum productType,
+            @RequestParam(value = "amount") int amount
+    ) throws RisingRaimonException {
+        log.info("ProductController::buyProducts() of type: {}, total of: {}", productType, amount);
+        productUseCase.buyProduct(productType, amount);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Endpoint to sell a player shirts")
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping(headers = "Accept=application/json")
+    public ResponseEntity<Void> sellProducts(
+            @RequestParam(value = "productType") ProductTypeEnum productType,
+            @RequestParam(value = "amount") int amount
+    ) throws RisingRaimonException {
+        log.info("ProductController::sellProducts() of type: {}, total of: {}", productType, amount);
+        productUseCase.sellProduct(productType, amount);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @Operation(summary = "Endpoint to know how much money we have spent on a product")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/spent", headers = "Accept=application/json")
