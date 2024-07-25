@@ -1,6 +1,6 @@
 package com.rising.raimon.stock.domain.service;
 
-import com.rising.raimon.stock.application.model.request.PriceProductRequestDTO;
+import com.rising.raimon.stock.domain.model.enums.ProductTypeEnum;
 import com.rising.raimon.stock.domain.model.exception.RisingRaimonException;
 import com.rising.raimon.stock.domain.usecases.PricesUseCase;
 import com.rising.raimon.stock.infrastructure.persistence.entities.ProductEntity;
@@ -17,25 +17,25 @@ public class PricesService implements PricesUseCase {
     private final ProductEntityRepository productEntityRepository;
 
     @Override
-    public void addSellPrice(PriceProductRequestDTO request) throws RisingRaimonException {
+    public void addSellPrice(ProductTypeEnum productType, Double price) throws RisingRaimonException {
         try {
-            ProductEntity response = productEntityRepository.findByType(request.getProductType().getValue());
-            response.setSellPrice(request.getPrice());
+            ProductEntity response = productEntityRepository.findByType(productType.getValue());
+            response.setSellPrice(price);
             productEntityRepository.save(response);
         } catch (Exception e) {
-            log.error("Error while adding sell price into {} product: {}", request.getProductType(), e.getMessage());
+            log.error("Error while adding sell price into {} product: {}", productType, e.getMessage());
             throw new RisingRaimonException(e.getMessage());
         }
     }
 
     @Override
-    public void addCostPrice(PriceProductRequestDTO request) throws RisingRaimonException {
+    public void addCostPrice(ProductTypeEnum productType, Double price) throws RisingRaimonException {
         try {
-            ProductEntity response = productEntityRepository.findByType(request.getProductType().getValue());
-            response.setCostPrice(request.getPrice());
+            ProductEntity response = productEntityRepository.findByType(productType.getValue());
+            response.setCostPrice(price);
             productEntityRepository.save(response);
         } catch (Exception e) {
-            log.error("Error while adding sell price into {} product: {}", request.getProductType(), e.getMessage());
+            log.error("Error while adding sell price into {} product: {}", productType, e.getMessage());
             throw new RisingRaimonException(e.getMessage());
         }
     }

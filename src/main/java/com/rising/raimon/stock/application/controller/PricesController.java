@@ -1,6 +1,6 @@
 package com.rising.raimon.stock.application.controller;
 
-import com.rising.raimon.stock.application.model.request.PriceProductRequestDTO;
+import com.rising.raimon.stock.domain.model.enums.ProductTypeEnum;
 import com.rising.raimon.stock.domain.model.exception.RisingRaimonException;
 import com.rising.raimon.stock.domain.usecases.PricesUseCase;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,18 +24,24 @@ public class PricesController {
     @Operation(summary = "Endpoint to set the cost price of a product")
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/cost-price", headers = "Accept=application/json")
-    public ResponseEntity<Void> addCostPriceOfProduct(@RequestBody PriceProductRequestDTO request) throws RisingRaimonException {
-        log.info("PricesController::addCostPriceOfProduct() with params: {}", request);
-        pricesUseCase.addCostPrice(request);
+    public ResponseEntity<Void> addCostPriceOfProduct(
+            @RequestParam(value = "productType") ProductTypeEnum productType,
+            @RequestParam(value = "price") Double price
+    ) throws RisingRaimonException {
+        log.info("PricesController::addCostPriceOfProduct() to product: {}", productType);
+        pricesUseCase.addCostPrice(productType, price);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "Endpoint to set the sell price of a product")
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/sell-price", headers = "Accept=application/json")
-    public ResponseEntity<Void> addSellPriceOfProduct(@RequestBody PriceProductRequestDTO request) throws RisingRaimonException {
-        log.info("PricesController::addSellPriceOfProduct() with params: {}", request);
-        pricesUseCase.addSellPrice(request);
+    public ResponseEntity<Void> addSellPriceOfProduct(
+            @RequestParam(value = "productType") ProductTypeEnum productType,
+            @RequestParam(value = "price") Double price
+    ) throws RisingRaimonException {
+        log.info("PricesController::addSellPriceOfProduct() to product: {}", productType);
+        pricesUseCase.addSellPrice(productType, price);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
