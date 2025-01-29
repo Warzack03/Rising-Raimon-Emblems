@@ -10,4 +10,5 @@ public interface UserUseCase {
     void deleteUser(int userId) throws RisingRaimonException;
     UserDTO getUserById(int userId) throws RisingRaimonException;
     List<UserDTO> getUsers() throws RisingRaimonException;
+    boolean checkIfUserExistsByEmail(String userEmail) throws RisingRaimonException;
 }

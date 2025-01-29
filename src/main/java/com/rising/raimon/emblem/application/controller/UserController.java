@@ -54,4 +54,12 @@ public class UserController {
         log.info("UserController::getUsers()");
         return new ResponseEntity<>(userUseCase.getUsers(), HttpStatus.OK);
     }
+
+    @Operation(summary = "Endpoint to know if an user exists by email")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/exists/email", headers = "Accept=application/json")
+    public ResponseEntity<Boolean> checkIfUserExistsByEmail(@RequestParam String userEmail) throws RisingRaimonException {
+        log.info("UserController::userEmail()");
+        return new ResponseEntity<>(userUseCase.checkIfUserExistsByEmail(userEmail), HttpStatus.OK);
+    }
 }

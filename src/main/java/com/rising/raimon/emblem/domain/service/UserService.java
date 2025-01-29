@@ -71,4 +71,15 @@ public class UserService implements UserUseCase {
             throw new RisingRaimonException(e.getMessage());
         }
     }
+
+    @Override
+    public boolean checkIfUserExistsByEmail(String userEmail) throws RisingRaimonException {
+        try {
+            Long count = userRepository.countByEmail(userEmail);
+            return count != 0;
+        } catch (Exception e) {
+            log.error("Error while checking if user exists by email -> {}", e.getMessage());
+            throw new RisingRaimonException(e.getMessage());
+        }
+    }
 }

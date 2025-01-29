@@ -90,11 +90,11 @@ public class SaleService implements SaleUseCase {
     @Override
     public List<SaleDTO> getSales() throws RisingRaimonException {
         try {
-            List<SaleEntity> emblems = saleRepository.findAll();
-            if (emblems.isEmpty()) {
+            List<SaleEntity> sales = saleRepository.findAll();
+            if (sales.isEmpty()) {
                 throw new RisingRaimonException(NO_SALE_FOUND_ERROR);
             }
-            return emblems.stream().map(saleEntity -> objectMapper.convertValue(saleEntity, SaleDTO.class)).toList();
+            return sales.stream().map(saleEntity -> objectMapper.convertValue(saleEntity, SaleDTO.class)).toList();
         } catch (Exception e) {
             log.error("Error while getting sales -> {}", e.getMessage());
             throw new RisingRaimonException(e.getMessage());
