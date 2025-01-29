@@ -6,16 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ProductSoldInTimeRequestDTO {
+public class SaleRequestDTO {
 
-    private EmblemEnum productType;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private int id;
+    private LocalDateTime date;
+    private float value;
+    private EmblemEnum emblem;
+    private int userId;
 
 }

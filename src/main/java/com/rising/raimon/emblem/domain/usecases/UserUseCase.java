@@ -1,6 +1,5 @@
 package com.rising.raimon.emblem.domain.usecases;
 
-import com.rising.raimon.emblem.application.model.request.UserRequestDTO;
 import com.rising.raimon.emblem.domain.model.UserDTO;
 import com.rising.raimon.emblem.domain.model.exception.RisingRaimonException;
 

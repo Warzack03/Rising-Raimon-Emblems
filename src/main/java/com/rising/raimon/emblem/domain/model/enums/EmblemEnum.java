@@ -2,19 +2,19 @@ package com.rising.raimon.emblem.domain.model.enums;
 
 public enum EmblemEnum {
 
-    EMBLEM_ADMIN("ADMIN", 1000),
-    EMBLEM_FOUNDER_PLAYER("FOUNDER_PLAYER", 10);
+    EMBLEM_ADMIN("ADMIN", 100),
+    EMBLEM_FOUNDER_PLAYER("FOUNDER_PLAYER", 1);
 
-    private final String value;
+    private final String name;
     private final int level;
 
-    EmblemEnum(String value, int level) {
-        this.value = value;
+    EmblemEnum(String name, int level) {
+        this.name = name;
         this.level = level;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
     public int getLevel() {
         return level;
